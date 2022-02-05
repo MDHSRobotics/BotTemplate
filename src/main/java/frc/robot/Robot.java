@@ -19,14 +19,13 @@ import frc.robot.consoles.Logger;
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
 
-    private RobotContainer m_robotContainer;
 
     // Test variables
     private int m_numberOfTests;
 
     // private int m_currentTestNumber;
     // private int m_testIteration;
-    
+
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -35,9 +34,11 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         System.out.println("--");
         Logger.setup("Initializing Robot...");
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-        // autonomous chooser on the dashboard.
-        m_robotContainer = new RobotContainer();
+
+        // Initialize our RobotManager, which initializes and perists the state of the robot,
+        // including flags, sensors, devices, subsystems, commands, shuffleboard,
+        // and puts our autonomous chooser on the dashboard.
+        RobotManager.initialize();
     }
 
     /**
@@ -73,12 +74,12 @@ public class Robot extends TimedRobot {
         System.out.println("--");
         Logger.setup("Initializing Autonomous Mode...");
 
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+        //m_autonomousCommand = BotCommands.getAutonomousCommand();
 
         // schedule the autonomous command (example)
-        if (m_autonomousCommand != null) {
-            m_autonomousCommand.schedule();
-        }
+        // if (m_autonomousCommand != null) {
+        //     m_autonomousCommand.schedule();
+        // }
     }
 
     /** This function is called periodically during autonomous. */
