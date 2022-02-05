@@ -19,8 +19,6 @@ import frc.robot.consoles.Logger;
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
 
-    private RobotContainer m_robotContainer;
-
     // Test Variables
     private int m_numberOfTests;
     // private int m_currentTestNumber;
@@ -34,9 +32,13 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
-        m_robotContainer = new RobotContainer();
         System.out.println("--");
         Logger.setup("Initializing Robot...");
+
+        // Initialize our RobotManager, which initializes and perists the state of the robot,
+        // including flags, sensors, devices, subsystems, commands, shuffleboard,
+        // and puts our autonomous chooser on the dashboard.
+        RobotManager.initialize();
     }
 
     /**
@@ -48,6 +50,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+
+        // Update the Shuffleboard
+        RobotManager.botShuffler.update();
+
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
         // commands, running already-scheduled commands, removing finished or interrupted commands,
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -75,7 +81,6 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         System.out.println("--");
         Logger.setup("Initializing Autonomous Mode...");
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
@@ -93,6 +98,9 @@ public class Robot extends TimedRobot {
         System.out.println("--");
         Logger.setup("Initializing Teleop Mode...");
 
+        // Set subsystem "teleop" default commands
+        BotSubsystems.setTeleopDefaultCommands();
+
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
@@ -101,6 +109,8 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
+        // Configure all controllers
+        BotControllers.configure();
     }
 
     @Override
