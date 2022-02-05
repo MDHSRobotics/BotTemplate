@@ -21,6 +21,12 @@ public class Robot extends TimedRobot {
 
     private RobotContainer m_robotContainer;
 
+    // Test variables
+    private int m_numberOfTests;
+
+    // private int m_currentTestNumber;
+    // private int m_testIteration;
+    
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -105,6 +111,11 @@ public class Robot extends TimedRobot {
         Logger.setup("Initializing Test Mode...");
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
+
+        // Reset the test variables
+        Logger.info("Number of tests registered: " + m_numberOfTests);
+        // m_currentTestNumber = 0;
+        // m_testIteration = 0;
     }
 
     /** This function is called periodically during test mode. */
