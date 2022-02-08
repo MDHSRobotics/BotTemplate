@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
     // private int m_currentTestNumber;
     // private int m_testIteration;
 
-    private RobotContainer m_robotContainer;
+    private RobotManager m_robotManager;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -34,9 +34,9 @@ public class Robot extends TimedRobot {
         System.out.println("--");
         Logger.setup("Initializing Robot...");
 
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+        // Instantiate our RobotManager.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
-        m_robotContainer = new RobotContainer();
+        m_robotManager = new RobotManager();
     }
 
     /**
@@ -66,13 +66,11 @@ public class Robot extends TimedRobot {
     public void disabledPeriodic() {
     }
 
-    /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+    /** This autonomous runs the autonomous command selected by your {@link RobotManager} class. */
     @Override
     public void autonomousInit() {
         System.out.println("--");
         Logger.setup("Initializing Autonomous Mode...");
-
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
